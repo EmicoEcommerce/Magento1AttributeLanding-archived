@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+         <cms>
+            <children>
+                <emico_attributelanding>
+                    <title>Attribute landingpage</title>
+                    <action>adminhtml/attributeLanding_page</action>
+                    <sort_order>0</sort_order>
+                </emico_attributelanding>
+            </children>
+         </cms>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <cms>
+                        <children>
+                            <emico_attributelanding translate="title" module="emico_attributelanding">
+                                <title>Attribute splash pages</title>
+                            </emico_attributelanding>
+                        </children>
+                    </cms>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

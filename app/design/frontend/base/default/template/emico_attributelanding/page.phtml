@@ -1,0 +1,28 @@
+<?php
+/** @var $this Emico_AttributeLanding_Block_Page */
+$_page = $this->getPage();
+?>
+
+<div class="attributelanding-container">
+    <div class="page-title category-title">
+        <h1><?=$this->escapeHtml($_page->getTitle());?></h1>
+    </div>
+
+    <?php if ($this->getPageHeader() !== null): ?>
+    <div class="page-header-image">
+        <img src="<?php echo $this->getPageHeader(); ?>">
+    </div>
+    <?php endif; ?>
+
+    <?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
+
+    <div class="category-description">
+        <?=$this->getShortDescription();?>
+    </div>
+
+    <?=$this->getProductListBlockHtml();?>
+
+    <div class="category-description">
+        <?=$this->getLongDescription();?>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<layout>
+    <adminhtml_attributelanding_page_edit>
+        <reference name="head">
+            <action method="setCanLoadTinyMce"><flag>1</flag></action>
+        </reference>
+        <update handle="editor"/>
+    </adminhtml_attributelanding_page_edit>
+</layout>

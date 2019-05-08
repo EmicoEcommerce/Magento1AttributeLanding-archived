@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<layout>
+    <emico_attributelanding_index_index>
+        <update handle="page_two_columns_left"/>
+
+        <reference name="content">
+            <block type="emico_attributelanding/page" name="emico_attributelanding.page" template="emico_attributelanding/page.phtml" />
+        </reference>
+    </emico_attributelanding_index_index>
+
+    <!-- Native search layout updates -->
+    <emico_attributelanding_implementation_native>
+        <update handle="catalog_category_layered"/>
+
+        <reference name="content">
+            <action method="unsetChild">
+                <name>category.products</name>
+            </action>
+        </reference>
+
+        <reference name="emico_attributelanding.page">
+            <action method="setChild">
+                <block>product_list</block>
+                <alias>product_list</alias>
+            </action>
+        </reference>
+    </emico_attributelanding_implementation_native>
+
+    <!-- Tweakwise layout updates -->
+    <emico_attributelanding_implementation_tweakwise>
+        <update handle="tweakwise_catalog_layered_nav"/>
+
+        <reference name="content">
+            <action method="unsetChild">
+                <name>tweakwise.category.products</name>
+            </action>
+            <action method="unsetChild">
+                <name>tweakwise.category.products.wrapper</name>
+            </action>
+        </reference>
+
+        <reference name="tweakwise.category.products.wrapper">
+            <action method="unsetChild">
+                <name>tweakwise.category.products</name>
+            </action>
+            <action method="setChild">
+                <block>product_list</block>
+                <alias>product_list</alias>
+            </action>
+        </reference>
+
+        <reference name="emico_attributelanding.page">
+            <action method="setChild">
+                <block>tweakwise.category.products.wrapper</block>
+                <alias>tweakwise.category.products.wrapper</alias>
+            </action>
+        </reference>
+    </emico_attributelanding_implementation_tweakwise>
+</layout>

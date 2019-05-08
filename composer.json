@@ -1,0 +1,29 @@
+{
+  "name": "emico/magento1-attribute-landing",
+  "type": "magento-module",
+  "license": "OSL-3.0",
+  "description": "Module to create landing pages with preselected filters, which can be configured in the Admin",
+  "authors": [
+    {
+      "name":"Emico",
+      "email":"info@emico.nl"
+    }
+  ],
+  "extra": {
+    "map": [
+      ["app/etc/modules/Emico_AttributeLanding.xml", "app/etc/modules/Emico_AttributeLanding.xml"],
+      ["app/code/local/Emico/AttributeLanding", "app/code/local/Emico/AttributeLanding"],
+      ["app/design/frontend/base/default/layout/emico_attributelanding.xml", "app/design/frontend/base/default/layout/emico_attributelanding.xml"],
+      ["app/design/adminhtml/default/default/layout/emico_attributelanding.xml", "app/design/adminhtml/default/default/layout/emico_attributelanding.xml"],
+      ["app/design/frontend/base/default/template/emico_attributelanding", "app/design/frontend/base/default/template/emico_attributelanding"]
+    ]
+  },
+  "suggest": {
+    "emico/magento1-tweakwise": "Tweakwise navigator 2.0.0 or higher",
+    "emico/magento1-tweakwise-export": "Tweakwise navigator feed generator 3.0.0 or higher"
+  },
+  "conflict": {
+    "emico/magento1-tweakwise": "<2.0.0",
+    "emico/magento1-tweakwise-export": "<3.0.0"
+  }
+}
