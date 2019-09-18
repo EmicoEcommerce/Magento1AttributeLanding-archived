@@ -139,8 +139,16 @@ class Emico_AttributeLanding_Model_Observer
             return;
         }
 
+        $searchAttributes = array_map(
+            static function (array $item) {
+                return $item['attribute'] . '||' . $item['value'] ;
+            },
+            $page->getSearchAttributes()
+        );
+
+
         $layer = Mage::getSingleton('emico_tweakwise/catalog_layer');
-        if (count($page->getSearchAttributes()) !== count($this->getSelectedAttributesWithoutCategory($layer))) {
+        if (!empty(array_diff($this->getSelectedAttributesWithoutCategory($layer), $searchAttributes))) {
             $layout = Mage::app()->getLayout();
             /** @var Mage_Page_Block_Html_Head $head */
             $head = $layout->getBlock('head');
@@ -162,7 +170,10 @@ class Emico_AttributeLanding_Model_Observer
                 continue;
             }
 
-            $selectedFacetsWithoutCategories[] = $facet;
+            foreach ($facet->getActiveAttributes() as $attribute) {
+                $selectedFacetsWithoutCategories[] = $facet->getFacetSettings()->getUrlKey() . '||' . $attribute->getTitle();
+            }
+
         }
 
         return $selectedFacetsWithoutCategories;

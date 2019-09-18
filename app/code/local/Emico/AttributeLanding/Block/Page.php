@@ -75,7 +75,7 @@ class Emico_AttributeLanding_Block_Page extends Mage_Core_Block_Template
             $breadcrumbsBlock->addCrumb('page-detail', [
                 'label' => $page->getTitle(),
                 'title' => $page->getTitle(),
-                'link' => $page->getUrlPath()
+                'link' => $this->getUrl($page->getUrlPath())
             ]);
         }
 
