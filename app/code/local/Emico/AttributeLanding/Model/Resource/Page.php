@@ -66,6 +66,24 @@ class Emico_AttributeLanding_Model_Resource_Page extends Mage_Core_Model_Resourc
     }
 
     /**
+     * Perform actions before object save
+     *
+     * @param Varien_Object $object
+     * @return Mage_Core_Model_Resource_Db_Abstract
+     */
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    {
+        parent::_beforeSave($object);
+        // Trim leading and trailing slashes
+        $urlPath = $object->getData('url_path');
+        $urlPath = trim($urlPath, '/');
+
+        $object->setData('url_path', $urlPath);
+
+        return $this;
+    }
+
+    /**
      * Assign page to store views
      *
      * @param Mage_Core_Model_Abstract $object
