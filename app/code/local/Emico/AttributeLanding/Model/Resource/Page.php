@@ -73,14 +73,13 @@ class Emico_AttributeLanding_Model_Resource_Page extends Mage_Core_Model_Resourc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        parent::_beforeSave($object);
         // Trim leading and trailing slashes
         $urlPath = $object->getData('url_path');
         $urlPath = trim($urlPath, '/');
 
         $object->setData('url_path', $urlPath);
 
-        return $this;
+        return parent::_beforeSave($object);
     }
 
     /**
