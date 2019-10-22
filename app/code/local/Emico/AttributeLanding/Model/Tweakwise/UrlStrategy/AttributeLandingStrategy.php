@@ -112,7 +112,7 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingStrateg
 
     /**
      * Filter value configured for attribute landing page can be the raw attribute value or the slug. Accommodate for both cases
-     * 
+     *
      * @param string $value
      * @return int|null|string
      */
@@ -130,18 +130,32 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingStrateg
      * @param int $categoryId
      * @return string
      */
-    protected function buildFilterHash(array $filters, int $categoryId)
+    protected function buildFilterHash(array $filters, int $categoryId = null)
     {
         unset($filters['categorie']);
         if (empty($filters)) {
             return null;
         }
 
-        if ($categoryId !== null) {
+        if ($categoryId !== null && !$this->isRootCategory($categoryId)) {
             $filters['category'] = $categoryId;
         }
         ksort($filters);
         return md5(json_encode($filters));
+    }
+
+    /**
+     * @param int $categoryId
+     * @return bool
+     */
+    protected function isRootCategory(int $categoryId): bool
+    {
+        try {
+            $rootCategoryId = (int) Mage::app()->getStore()->getRootCategoryId();
+            return $rootCategoryId === $categoryId;
+        } catch (Exception $exception) {
+            return false;
+        }
     }
 
     /**
@@ -167,12 +181,19 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingStrateg
      */
     protected function loadPageLookupTable(Mage_Catalog_Model_Category $category)
     {
+        $categoryFilterClause = [
+            ['eq' => $category->getId()]
+        ];
+        if ($this->isRootCategory($category->getId())) {
+            $categoryFilterClause[] = ['null' => true];
+        }
+
         /** @var Emico_AttributeLanding_Model_Resource_Page_Collection $pageCollection */
         $pageCollection = Mage::getModel('emico_attributelanding/page')->getCollection();
         $pageCollection
             ->addCurrentStoreFilter()
             ->addFieldToFilter('active', 1)
-            ->addFieldToFilter('category_id', $category->getId());
+            ->addFieldToFilter('category_id', $categoryFilterClause);
 
         /** @var Emico_AttributeLanding_Model_Page $page */
         foreach ($pageCollection as $page) {
@@ -196,7 +217,7 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingStrateg
     {
         return Mage::getSingleton('emico_tweakwiseexport/slugAttributeMapping');
     }
-    
+
     /**
      * @param Emico_Tweakwise_Model_Catalog_Layer $state
      * @return mixed|void
