@@ -33,7 +33,12 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingStrateg
         /** @var Emico_AttributeLanding_Model_Page $landingPage */
         $landingPage = Mage::app()->getRequest()->getParam('page');
         if ($landingPage && $attribute->getIsSelected()) {
-            return $landingPage->getUrlPath() . '?' . http_build_query($this->getQueryParamStrategy()->getUrlKeyValPairs($facet, $attribute));
+            $filterPart = http_build_query($this->getQueryParamStrategy()->getUrlKeyValPairs($facet, $attribute));
+            $removeUrl = $landingPage->getUrlPath();
+            if (!empty($filterPart)) {
+                $removeUrl .= '?' . $filterPart;
+            }
+            return $removeUrl;
         }
 
         // Check if we have an attribute landing page available for the filter combination
@@ -47,7 +52,7 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingStrateg
         $page = $this->findLandingPageByFilters($category, $filterHash);
 
         if ($page !== null) {
-            return '/' . $page->getUrlPath() . '#no-ajax';
+            return $page->getUrlPath() . '#no-ajax';
         }
 
         return null;

@@ -7,7 +7,6 @@
 /**
  * Class Emico_AttributeLanding_Model_Page
  *
- * @method string getUrlPath();
  * @method $this setUrlPath(string $path);
  * @method $this setActive(bool $active);
  * @method bool getActive();
@@ -141,5 +140,17 @@ class Emico_AttributeLanding_Model_Page extends Mage_Core_Model_Abstract
         }
 
         return Mage::getBaseUrl() . $this->getUrlPath();
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlPath()
+    {
+        $urlPath = $this->getData('url_path');
+        if (substr($urlPath, 0, 1) !== '/') {
+            $urlPath = '/' . $urlPath;
+        }
+        return $urlPath;
     }
 }
