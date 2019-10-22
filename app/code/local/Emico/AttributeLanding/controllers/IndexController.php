@@ -25,7 +25,7 @@ class Emico_AttributeLanding_IndexController extends Mage_Core_Controller_Front_
      */
     protected function setFilterState(Emico_AttributeLanding_Model_Page $page)
     {
-        if (!Mage::helper('core')->isModuleEnabled('Emico_Tweakwise')) {
+        if (Mage::helper('core')->isModuleEnabled('Emico_Tweakwise')) {
             return;
         }
 
