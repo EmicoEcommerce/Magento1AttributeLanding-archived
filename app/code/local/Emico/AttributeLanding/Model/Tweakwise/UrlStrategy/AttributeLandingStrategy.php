@@ -109,7 +109,7 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingStrateg
         }
         foreach ($page->getSearchAttributesKvp() as $key => $values) {
             foreach ($values as $value) {
-                $tweakwiseRequest->addFacetKey($key, $this->getTweakwiseAttributeValue($key, $value));
+                $tweakwiseRequest->addFacetKey($key, $this->getTweakwiseAttributeValue($value));
             }
         }
         return $tweakwiseRequest;
@@ -121,10 +121,10 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingStrateg
      * @param string $value
      * @return int|null|string
      */
-    protected function getTweakwiseAttributeValue(string $key, string $value)
+    protected function getTweakwiseAttributeValue(string $value)
     {
         try {
-            return $this->getSlugAttributeMapper()->getAttributeValueBySlug($key, $value);
+            return $this->getSlugAttributeMapper()->getAttributeValueBySlug($value);
         } catch (Emico_TweakwiseExport_Model_Exception_SlugMappingException $exception) {
             return $value;
         }
