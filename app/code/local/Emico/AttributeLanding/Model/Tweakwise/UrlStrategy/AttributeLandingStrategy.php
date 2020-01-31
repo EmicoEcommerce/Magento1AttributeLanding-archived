@@ -142,9 +142,15 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingStrateg
             return null;
         }
 
+        foreach ($filters as $key => $filterValues) {
+            $sanitizedFilters = array_map('strtolower', $filterValues);
+            $filters[$key] = $sanitizedFilters;
+        }
+        
         if ($categoryId !== null && !$this->isRootCategory($categoryId)) {
             $filters['category'] = $categoryId;
         }
+
         ksort($filters);
         return md5(json_encode($filters));
     }
