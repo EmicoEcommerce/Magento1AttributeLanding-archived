@@ -69,24 +69,6 @@ class Emico_AttributeLanding_Model_Observer
 
     /**
      * @param Varien_Event_Observer $event
-     */
-    public function tweakwiseUrlbuilderStrategyRegistered(Varien_Event_Observer $event)
-    {
-        $strategy = $event->getData('strategy');
-        if (!$strategy instanceof Emico_Tweakwise_Model_UrlBuilder_Strategy_PathStrategy) {
-            return;
-        }
-
-        $page = Mage::app()->getRequest()->getParam('page');
-        if (!$page instanceof Emico_AttributeLanding_Model_Page) {
-            return;
-        }
-
-        $strategy->setIsAllowedInCurrentContext(false);
-    }
-
-    /**
-     * @param Varien_Event_Observer $event
      * @throws Varien_Exception
      */
     public function addHeadMetaData(Varien_Event_Observer $event)
