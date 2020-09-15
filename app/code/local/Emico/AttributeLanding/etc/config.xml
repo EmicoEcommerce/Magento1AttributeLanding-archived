@@ -42,6 +42,14 @@
             </emico_attributelanding_setup>
         </resources>
         <events>
+            <tweakwise_urlbuilder_strategy_registered>
+                <observers>
+                    <emico_attributelanding_tweakwise_strategy_registration>
+                        <class>emico_attributelanding/observer_landingsPageStrategyResolver</class>
+                        <method>disableIncorrectAttributeLandingStrategy</method>
+                    </emico_attributelanding_tweakwise_strategy_registration>
+                </observers>
+            </tweakwise_urlbuilder_strategy_registered>
             <sitemap_categories_generating_before>
                 <observers>
                     <emico_attributelanding_sitemap>
@@ -50,14 +58,6 @@
                     </emico_attributelanding_sitemap>
                 </observers>
             </sitemap_categories_generating_before>
-            <tweakwise_urlbuilder_strategy_registered>
-                <observers>
-                    <emico_attributelanding>
-                        <class>emico_attributelanding/observer</class>
-                        <method>tweakwiseUrlbuilderStrategyRegistered</method>
-                    </emico_attributelanding>
-                </observers>
-            </tweakwise_urlbuilder_strategy_registered>
             <controller_action_layout_render_before_emico_attributelanding_index_index>
                 <observers>
                     <emico_attributelanding_metadata>
@@ -75,6 +75,12 @@
                     <priority>1</priority>
                     <selectable>0</selectable>
                 </attribute_landing>
+                <attribute_landing_path>
+                    <class>emico_attributelanding/tweakwise_urlStrategy_attributeLandingPathSlugStrategy</class>
+                    <active>1</active>
+                    <priority>0</priority>
+                    <selectable>0</selectable>
+                </attribute_landing_path>
             </urlbuilder_strategies>
         </emico_tweakwise>
     </global>

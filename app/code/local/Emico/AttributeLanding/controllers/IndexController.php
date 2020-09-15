@@ -50,7 +50,9 @@ class Emico_AttributeLanding_IndexController extends Mage_Core_Controller_Front_
         $this->initCategory($page);
         $this->setFilterState($page);
 
-        $this->getRequest()->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, $page->getUrlPath());
+        if (!$this->getRequest()->getAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS)) {
+            $this->getRequest()->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, $page->getUrlPath());
+        }
 
         if (Mage::helper('core')->isModuleEnabled('Emico_Tweakwise') && $templateId = $page->getData('tweakwise_template')) {
             Mage::getSingleton('emico_tweakwise/catalog_layer')->setTemplateId($templateId);

@@ -32,6 +32,8 @@ class Emico_AttributeLanding_Controller_Router extends Mage_Core_Controller_Vari
             ->setActionName('index')
             ->setParam('page', $page);
 
+        $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, $page->getUrlPath());
+
         return true;
     }
 }
