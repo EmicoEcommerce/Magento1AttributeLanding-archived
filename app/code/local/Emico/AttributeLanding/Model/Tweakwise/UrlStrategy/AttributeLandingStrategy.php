@@ -37,21 +37,22 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingStrateg
         $landingPage = Mage::app()->getRequest()->getParam('page');
         if ($landingPage && $attribute->getIsSelected()) {
             $queryParamStrategy = Mage::helper('emico_attributelanding')->getQueryParamStrategy();
+            if (!$queryParamStrategy) {
+                return null;
+            }
             return $landingPage->getUrlPath() . '?' . http_build_query($queryParamStrategy->getUrlKeyValPairs($facet, $attribute));
         }
 
         // Check if we have an attribute landing page available for the filter combination
         $filters = $this->getActiveFilters($state, $facet, $attribute);
-
         $filterHash = $this->buildFilterHash($filters, $category->getId());
         if ($filterHash === null) {
             return null;
         }
 
         $page = $this->findLandingPageByFilters($category, $filterHash);
-
         if ($page !== null) {
-            return '/' . $page->getUrlPath() . '#no-ajax';
+            return $page->getUrlPath() . '#no-ajax';
         }
 
         return null;

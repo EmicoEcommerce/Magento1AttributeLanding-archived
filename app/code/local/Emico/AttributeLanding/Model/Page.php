@@ -139,7 +139,7 @@ class Emico_AttributeLanding_Model_Page extends Mage_Core_Model_Abstract
             return $canonicalUrl;
         }
 
-        return Mage::getBaseUrl() . $this->getUrlPath();
+        return rtrim(Mage::getBaseUrl(), '/') . $this->getUrlPath();
     }
 
     /**

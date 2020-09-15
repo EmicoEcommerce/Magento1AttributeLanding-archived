@@ -9,9 +9,9 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingPathSlu
     implements Emico_Tweakwise_Model_UrlBuilder_Strategy_RoutingStrategyInterface
 {
     /**
-     * @var
+     * @var string
      */
-    protected $_pathStrategyBaseUrl;
+    protected $pathStrategyBaseUrl;
 
     /**
      * @inheritDoc
@@ -99,6 +99,9 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingPathSlu
         $landingPage = Mage::app()->getRequest()->getParam('page');
 
         $twUrlStrategy = Mage::helper('emico_attributelanding')->getPathSlugStrategy();
+        if (!$twUrlStrategy) {
+            return null;
+        }
         $twUrlResult = $twUrlStrategy->buildUrl($state, $facet, $attribute);
 
         if ($landingPage && $attribute->getIsSelected() && $this->isFilterPartOfLandingPage($facet, $attribute, $landingPage)) {
@@ -112,7 +115,7 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingPathSlu
         $targetLandingPage = $filterHash ? $this->findLandingPageByFilters($category, $filterHash) : null;
 
         if ($targetLandingPage) {
-            return '/' . $targetLandingPage->getUrlPath() . '#no-ajax';
+            return $targetLandingPage->getUrlPath() . '#no-ajax';
         }
 
         // No matches
@@ -120,7 +123,11 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingPathSlu
             return null;
         }
 
-        $strippedTwUrlResult = str_replace([$this->getPathStrategyBaseUrl($category), $category->getUrlPath()], '', $twUrlResult);
+        $strippedTwUrlResult = str_replace(
+            [$this->getPathStrategyBaseUrl($category), $category->getUrlPath()],
+            '',
+            $twUrlResult
+        );
         foreach ($landingPage->getSearchAttributesKvp() as $filter => $filterValues) {
             foreach ($filterValues as $filterValue) {
                 $strippedTwUrlResult = str_replace(strtolower("/$filter/$filterValue"), '', $strippedTwUrlResult);
@@ -147,7 +154,7 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingPathSlu
         }
 
         $filterValue = $pageFilterDefinition[$facet->getFacetSettings()->getUrlKey()];
-        return in_array($attribute->getTitle(), $filterValue,true);
+        return in_array($attribute->getTitle(), $filterValue, true);
     }
 
     /**
@@ -158,12 +165,12 @@ class Emico_AttributeLanding_Model_Tweakwise_UrlStrategy_AttributeLandingPathSlu
      */
     protected function getPathStrategyBaseUrl(Mage_Catalog_Model_Category $category)
     {
-        if ($this->_pathStrategyBaseUrl === null) {
+        if ($this->pathStrategyBaseUrl === null) {
             $categoryUrl = $category->getUrl();
             $queryPosition = strpos($categoryUrl, '?');
-            $this->_pathStrategyBaseUrl = ($queryPosition > 0) ? substr($categoryUrl, 0, $queryPosition) : $categoryUrl;
+            $this->pathStrategyBaseUrl = ($queryPosition > 0) ? substr($categoryUrl, 0, $queryPosition) : $categoryUrl;
         }
 
-        return rtrim($this->_pathStrategyBaseUrl, '/');
+        return rtrim($this->pathStrategyBaseUrl, '/');
     }
 }
