@@ -31,7 +31,6 @@
  * @method $this setOverviewImage(string $filename);
  * @method string getOverviewDescription();
  * @method $this setOverviewDescription(string $description);
- * @method string getRobots();
  * @method $this setRobots(string $robots);
  * @method $this setCanonicalUrl(string $canonicalUrl)
  *
@@ -152,5 +151,13 @@ class Emico_AttributeLanding_Model_Page extends Mage_Core_Model_Abstract
             $urlPath = '/' . $urlPath;
         }
         return $urlPath;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRobots()
+    {
+        return this->getData('robots')?? Mage::getStoreConfig('design/head/default_robots');
     }
 }
