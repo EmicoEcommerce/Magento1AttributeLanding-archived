@@ -158,6 +158,6 @@ class Emico_AttributeLanding_Model_Page extends Mage_Core_Model_Abstract
      */
     public function getRobots()
     {
-        return this->getData('robots')?? Mage::getStoreConfig('design/head/default_robots');
+        return $this->getData('robots')?? Mage::getStoreConfig('design/head/default_robots');
     }
 }
