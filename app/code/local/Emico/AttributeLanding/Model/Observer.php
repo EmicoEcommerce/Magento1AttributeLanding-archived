@@ -141,7 +141,7 @@ class Emico_AttributeLanding_Model_Observer
 
         $searchAttributes = array_map(
             static function (array $item) {
-                return $item['attribute'] . '||' . $item['value'] ;
+                return strtolower($item['attribute'] . '||' . $item['value']);
             },
             $page->getSearchAttributes()
         );
@@ -171,7 +171,7 @@ class Emico_AttributeLanding_Model_Observer
             }
 
             foreach ($facet->getActiveAttributes() as $attribute) {
-                $selectedFacetsWithoutCategories[] = $facet->getFacetSettings()->getUrlKey() . '||' . $attribute->getTitle();
+                $selectedFacetsWithoutCategories[] = strtolower($facet->getFacetSettings()->getUrlKey() . '||' . $attribute->getTitle());
             }
 
         }
