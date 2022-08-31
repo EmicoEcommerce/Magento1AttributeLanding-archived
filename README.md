@@ -1,4 +1,4 @@
-# This package is abandoned and no longer maintained. For the replacement package see tweakwise/magento1-attributelanding package instead.
+# This package is abandoned and no longer maintained. For the replacement package see tweakwise/magento1-attribute-landing package instead.
 
 ---
 
